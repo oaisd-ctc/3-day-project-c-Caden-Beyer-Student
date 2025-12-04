@@ -4,7 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("==== POKÉMON C# GAME ====");
+        Console.WriteLine("Pokemon Game");
 
         List<Pokemon> playerTeam = TeamBuilder.ChooseTeam();
 
@@ -15,7 +15,7 @@ class Program
         for (int i = 0; i < 3; i++)
             enemyTeam.Add(available[r.Next(available.Count)]);
 
-        Console.WriteLine("\nYour battle begins!");
+        Console.WriteLine("\nBattle Begins!");
 
         int playerIndex = 0;
         int enemyIndex = 0;
