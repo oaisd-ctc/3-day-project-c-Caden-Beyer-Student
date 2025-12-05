@@ -40,7 +40,9 @@ namespace PokemonGame.Models
         {
             Console.WriteLine();
             Console.WriteLine($"{playerActive.Name} HP: {playerActive.HP}/{playerActive.MaxHP}");
+            Console.WriteLine();
             Console.WriteLine($"{enemyActive.Name} HP: {enemyActive.HP}/{enemyActive.MaxHP}");
+            Console.WriteLine();
             Console.WriteLine("1. Fight");
             Console.WriteLine("2. Switch Pokémon");
 
@@ -63,7 +65,7 @@ namespace PokemonGame.Models
 
         private void PlayerSwap()
         {
-            Console.WriteLine("Choose a Pokémon:");
+            Console.WriteLine("Choose your Pokémon:");
 
             List<Pokemon> available = playerTeam.Where(p => p.HP > 0 && p != playerActive).ToList();
 
@@ -77,7 +79,7 @@ namespace PokemonGame.Models
 
         private void ForcePlayerSwap()
         {
-            Console.WriteLine($"{playerActive.Name} fainted! Choose another Pokémon.");
+            Console.WriteLine($"Your {playerActive.Name} fainted! Choose another Pokémon.");
 
             List<Pokemon> available = playerTeam.Where(p => p.HP > 0).ToList();
 
@@ -109,6 +111,10 @@ namespace PokemonGame.Models
             {
                 Console.WriteLine($"{attacker.Name}'s {move.Name} missed!");
                 return;
+            }
+            if (move.heal == true)
+            {
+                int heal = 
             }
 
             double crit = rng.NextDouble() < move.CritChance ? 1.5 : 1.0;

@@ -8,12 +8,15 @@ namespace PokemonGame.Models
         public int Accuracy { get; set; }
         public double CritChance { get; set; } = 0.1;
 
-        public Move(string name, string type, int power, int accuracy)
+        public bool heal = false;
+
+        public Move(string name, string type, int power, int accuracy, bool heal)
         {
             Name = name;
             Type = type.ToLower();
             Power = power;
             Accuracy = accuracy;
+            this.heal = heal;
         }
     }
 }

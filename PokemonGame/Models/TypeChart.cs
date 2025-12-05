@@ -18,7 +18,7 @@ namespace PokemonGame.Models
                 ["bug"] = new() { ["grass"] = 2, ["psychic"] = 2 },
                 ["ghost"] = new() { ["psychic"] = 2, ["normal"] = 0 },
                 ["fighting"] = new() { ["rock"] = 2 },
-                ["normal"] = new() { }
+                ["normal"] = new() { ["ghost"] = 0 }
             };
 
         public static double GetEffectiveness(string moveType, string targetType)
