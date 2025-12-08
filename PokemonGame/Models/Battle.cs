@@ -112,9 +112,18 @@ namespace PokemonGame.Models
                 Console.WriteLine($"{attacker.Name}'s {move.Name} missed!");
                 return;
             }
+
             if (move.heal == true)
             {
-                int heal = 
+                int healAmount = move.Power;
+
+                attacker.HP += healAmount;
+                if (attacker.HP > attacker.MaxHP)
+                    attacker.HP = attacker.MaxHP;
+
+                Console.WriteLine($"{attacker.Name} used {move.Name} and healed {healAmount} HP!");
+                Console.WriteLine($"{attacker.Name} HP: {attacker.HP}/{attacker.MaxHP}");
+                return;
             }
 
             double crit = rng.NextDouble() < move.CritChance ? 1.5 : 1.0;
