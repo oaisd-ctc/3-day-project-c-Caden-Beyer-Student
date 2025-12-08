@@ -21,7 +21,7 @@ namespace PokemonGame.Models
 
         public void Start()
         {
-            Console.WriteLine("\n=== Battle Start ===");
+            Console.WriteLine("\nBattle Start");
 
             while (playerTeam.Any(p => p.HP > 0) && enemyTeam.Any(p => p.HP > 0))
             {
@@ -39,7 +39,7 @@ namespace PokemonGame.Models
 
         private void PlayerTurn()
         {
-            if (!CheckStatus(playerActive)) return; // skip turn if asleep/paralyzed
+            if (!CheckStatus(playerActive)) return;
 
             Console.WriteLine();
             Console.WriteLine($"{playerActive.Name} HP: {playerActive.HP}/{playerActive.MaxHP}");
@@ -134,7 +134,7 @@ namespace PokemonGame.Models
                     StatusCondition.Poison => defender.CurrentStatus == StatusCondition.None,
                     StatusCondition.Paralysis => defender.CurrentStatus == StatusCondition.None && rng.Next(100) < 50,
                     StatusCondition.Sleep => defender.CurrentStatus == StatusCondition.None && rng.Next(100) < 40,
-                    StatusCondition.ReduceAccuracy => true, // always succeeds
+                    StatusCondition.ReduceAccuracy => true,
                     _ => false
                 };
 
@@ -142,7 +142,7 @@ namespace PokemonGame.Models
                 {
                     if (move.Status == StatusCondition.ReduceAccuracy)
                     {
-                        defender.AccuracyModifier *= 0.85; // reduce by 15%
+                        defender.AccuracyModifier *= 0.85;
                         Console.WriteLine($"{defender.Name}'s accuracy was reduced!");
                     }
                     else

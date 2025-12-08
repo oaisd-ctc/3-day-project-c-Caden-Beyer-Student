@@ -1,4 +1,4 @@
-using PokemonGame.Models;
+ using PokemonGame.Models;
 
 namespace PokemonGame.Data
 {
