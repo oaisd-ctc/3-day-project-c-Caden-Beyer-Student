@@ -1,67 +1,45 @@
-﻿using System;
-using System.Threading;
+using System;
 
-class HorizontalScroller
+class Program
 {
     static void Main()
     {
-        
-        string message = "___________________________________________________________________AAA__________________________________________________________________AAAA______________________________________________________AAA____________________________________________________"; 
-        int consoleWidth = Console.WindowWidth;
-        int messageLength = message.Length;
-        bool keepRunning = true;
-
         Console.Clear();
-
-        while (keepRunning)
+        Console.WriteLine("Main Menu");
+        Console.WriteLine("Choose your game:");
+        Console.WriteLine("1: Dino Game");
+        Console.WriteLine("2: Card Game");
+        Console.WriteLine("3: Tic Tac Toe");
+        Console.Write("Enter the game you want to play (1-3): ");
+        
+        while (true)
         {
-            for (int i = 0; i <= messageLength; i++)
+            string choice = Console.ReadLine();
+            if (choice == "1")
             {
-                if (Console.KeyAvailable)
-                {
-                    ConsoleKeyInfo key = Console.ReadKey(true);
-                    if (key.Key == ConsoleKey.Q)
-                    {
-                        keepRunning = false;
-                        break;
-                    }
-                }
-
-                if (!keepRunning) break;
-                Console.SetCursorPosition(0, 0); 
-                Console.Write(new string(' ', consoleWidth));
-                string currentDisplay;
-
-                if (i + consoleWidth <= messageLength)
-                {
-                    currentDisplay = message.Substring(i, consoleWidth);
-                }
-                else
-                {
-                    int lengthOfEndPart = messageLength - i;
-                    int lengthOfStartPart = consoleWidth - lengthOfEndPart;
-                    
-                    lengthOfStartPart = Math.Max(0, lengthOfStartPart);
-
-                    if (lengthOfStartPart <= messageLength)
-                    {
-                        currentDisplay = message.Substring(i, lengthOfEndPart) + message.Substring(0, lengthOfStartPart);
-                    }
-                    else
-                    {
-                        currentDisplay = message.Substring(i);
-                    }
-                }
-
-                Console.SetCursorPosition(0, 0);
-                Console.Write(currentDisplay.Substring(0, Math.Min(currentDisplay.Length, consoleWidth)));
-
-                Thread.Sleep(50); 
+                DinoGame game = new DinoGame();
+                game.Run();
+                break;
             }
+            // else if (choice == "2")
+            // {
+            //     CardGame game = new CardGame();
+            //     game.Run();
+            //     break;
+            // }
+            // else if (choice == "3")
+            // {
+            //     TicTacToe game = new TicTacToe();
+            //     game.Run();
+            //     break;
+            // }
+            else
+            {
+                Console.Write("Invalid choice. Please enter a number between 1 and 3: ");
+                
+            }
+
         }
 
-        Console.SetCursorPosition(0, 1);
-        Console.WriteLine("Program stopped by user action. Press any key to close the window.");
-        Console.ReadKey();
     }
 }
