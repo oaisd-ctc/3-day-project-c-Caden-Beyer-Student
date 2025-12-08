@@ -110,7 +110,8 @@ namespace PokemonGame.Models
 
         private void ExecuteMove(Pokemon attacker, Pokemon defender, Move move)
         {
-            if (rng.Next(100) >= move.Accuracy)
+            double hitChance = (move.Accuracy / 100.0) * attacker.AccuracyModifier;
+            if (rng.NextDouble() >= hitChance)
             {
                 Console.WriteLine($"{attacker.Name}'s {move.Name} missed!");
                 return;
@@ -125,30 +126,38 @@ namespace PokemonGame.Models
                 return;
             }
 
-            // Apply status if possible
-            if (move.Status != StatusCondition.None && defender.CurrentStatus == StatusCondition.None)
+            if (move.Status != StatusCondition.None)
             {
                 bool inflicted = move.Status switch
                 {
-                    StatusCondition.Burn => true,
-                    StatusCondition.Poison => true,
-                    StatusCondition.Paralysis => rng.Next(100) < 50,
-                    StatusCondition.Sleep => rng.Next(100) < 40,
+                    StatusCondition.Burn => defender.CurrentStatus == StatusCondition.None,
+                    StatusCondition.Poison => defender.CurrentStatus == StatusCondition.None,
+                    StatusCondition.Paralysis => defender.CurrentStatus == StatusCondition.None && rng.Next(100) < 50,
+                    StatusCondition.Sleep => defender.CurrentStatus == StatusCondition.None && rng.Next(100) < 40,
+                    StatusCondition.ReduceAccuracy => true, // always succeeds
                     _ => false
                 };
 
                 if (inflicted)
                 {
-                    defender.CurrentStatus = move.Status;
-                    defender.StatusTurns = move.Status switch
+                    if (move.Status == StatusCondition.ReduceAccuracy)
                     {
-                        StatusCondition.Burn => 2,
-                        StatusCondition.Poison => 2,
-                        StatusCondition.Paralysis => 2,
-                        StatusCondition.Sleep => 1,
-                        _ => 0
-                    };
-                    Console.WriteLine($"{defender.Name} is now {move.Status}!");
+                        defender.AccuracyModifier *= 0.85; // reduce by 15%
+                        Console.WriteLine($"{defender.Name}'s accuracy was reduced!");
+                    }
+                    else
+                    {
+                        defender.CurrentStatus = move.Status;
+                        defender.StatusTurns = move.Status switch
+                        {
+                            StatusCondition.Burn => 2,
+                            StatusCondition.Poison => 2,
+                            StatusCondition.Paralysis => 2,
+                            StatusCondition.Sleep => 1,
+                            _ => 0
+                        };
+                        Console.WriteLine($"{defender.Name} is now {move.Status}!");
+                    }
                 }
             }
 

@@ -14,7 +14,7 @@ namespace PokemonGame.Data
         public static Move Slam = new("Slam", "normal", 58, 75, false);
         public static Move Bind = new("Bind", "normal", 12, 85, false);
         public static Move BodySlam = new("Body Slam", "normal", 62, 100, false);
-        public static Move TailWhip = new("Tail Whip", "normal", 0, 100, false);
+        public static Move TailWhip = new("Tail Whip", "normal", 0, 100, false, StatusCondition.ReduceAccuracy);
 
         public static Move Flamethrower = new("Flamethrower", "fire", 65, 100, false, StatusCondition.Burn);
         public static Move HydroPump = new("Hydro Pump", "water", 79, 80, false);
@@ -32,7 +32,7 @@ namespace PokemonGame.Data
         public static Move DragonRage = new("Dragon Rage", "dragon", 43, 100, false);
         public static Move HyperBeam = new("Hyper Beam", "normal", 108, 90, false);
 
-        public static Move SandAttack = new("Sand-Attack", "ground", 0, 100, false);
+        public static Move SandAttack = new("Sand-Attack", "ground", 0, 100, false, StatusCondition.ReduceAccuracy);
         public static Move Earthquake = new("Earthquake", "ground", 72, 100, false);
 
         public static Move FocusEnergy = new("Focus Energy", "normal", 0, 100, false);
@@ -45,7 +45,7 @@ namespace PokemonGame.Data
         public static Move ConfuseRay = new("Confuse Ray", "psychic", 0, 100, false);
 
         public static Move Smog = new("Smog", "poison", 22, 70, false, StatusCondition.Poison);
-        public static Move Smokescreen = new("Smokescreen", "normal", 0, 100, false);
+        public static Move Smokescreen = new("Smokescreen", "normal", 0, 100, false, StatusCondition.ReduceAccuracy);
 
         public static Move Lick = new("Lick", "ghost", 22, 100, false, StatusCondition.Paralysis);
         public static Move NightShade = new("Night Shade", "ghost", 43, 100, false);
@@ -57,10 +57,10 @@ namespace PokemonGame.Data
 
         public static Move RockThrow = new("Rock Throw", "rock", 36, 90, false);
 
-        public static Move StringShot = new("String Shot", "bug", 0, 95, false);
+        public static Move StringShot = new("String Shot", "bug", 0, 95, false, StatusCondition.ReduceAccuracy);
         public static Move BugBite = new("Bug Bite", "bug", 43, 100, false);
 
-        public static Move DisarmingVoice = new("Disarming Voice", "fairy", 29, 999, false);
+        public static Move DisarmingVoice = new("Disarming Voice", "fairy", 29, 999, false, StatusCondition.ReduceAccuracy);
 
         public static Move IceBeam = new("Ice Beam", "ice", 65, 100, false);
 

@@ -15,6 +15,8 @@ namespace PokemonGame.Models
 
         public List<Move> Moves = new();
 
+        public double AccuracyModifier { get; set; } = 1.0; // starts at 100%
+
         public Pokemon Clone()
         {
             return new Pokemon
@@ -27,7 +29,8 @@ namespace PokemonGame.Models
                 Defense = Defense,
                 Speed = Speed,
                 Moves = Moves,
-                Status = StatusCondition.None
+                Status = StatusCondition.None,
+                AccuracyModifier = 1.0
             };
         }
     }
