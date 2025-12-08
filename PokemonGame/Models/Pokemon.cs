@@ -10,6 +10,8 @@ namespace PokemonGame.Models
         public int Defense { get; set; }
         public int Speed { get; set; }
         public StatusCondition Status { get; set; } = StatusCondition.None;
+        public StatusCondition CurrentStatus { get; set; } = StatusCondition.None;
+        public int StatusTurns { get; set; } = 0;
 
         public List<Move> Moves = new();
 

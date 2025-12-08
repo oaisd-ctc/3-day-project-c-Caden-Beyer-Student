@@ -6,17 +6,19 @@ namespace PokemonGame.Models
         public string Type { get; set; }
         public int Power { get; set; }
         public int Accuracy { get; set; }
+        public bool Heal { get; set; }
+        public StatusCondition Status { get; set; } = StatusCondition.None;
+
         public double CritChance { get; set; } = 0.1;
 
-        public bool heal = false;
-
-        public Move(string name, string type, int power, int accuracy, bool heal)
+        public Move(string name, string type, int power, int accuracy, bool heal, StatusCondition status = StatusCondition.None)
         {
             Name = name;
-            Type = type.ToLower();
+            Type = type;
             Power = power;
             Accuracy = accuracy;
-            this.heal = heal;
+            Heal = heal;
+            Status = status;
         }
     }
 }

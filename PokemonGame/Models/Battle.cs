@@ -1,4 +1,5 @@
 using PokemonGame.Data;
+using System;
 
 namespace PokemonGame.Models
 {
@@ -38,9 +39,10 @@ namespace PokemonGame.Models
 
         private void PlayerTurn()
         {
+            if (!CheckStatus(playerActive)) return; // skip turn if asleep/paralyzed
+
             Console.WriteLine();
             Console.WriteLine($"{playerActive.Name} HP: {playerActive.HP}/{playerActive.MaxHP}");
-            Console.WriteLine();
             Console.WriteLine($"{enemyActive.Name} HP: {enemyActive.HP}/{enemyActive.MaxHP}");
             Console.WriteLine();
             Console.WriteLine("1. Fight");
@@ -92,6 +94,7 @@ namespace PokemonGame.Models
 
         private void EnemyTurn()
         {
+            if (!CheckStatus(enemyActive)) return;
             if (enemyActive.HP <= 0) return;
 
             Move move = enemyActive.Moves[rng.Next(enemyActive.Moves.Count)];
@@ -113,17 +116,40 @@ namespace PokemonGame.Models
                 return;
             }
 
-            if (move.heal == true)
+            if (move.Heal)
             {
-                int healAmount = move.Power;
-
+                int healAmount = (int)Math.Round(attacker.MaxHP * (move.Power / 100.0));
                 attacker.HP += healAmount;
-                if (attacker.HP > attacker.MaxHP)
-                    attacker.HP = attacker.MaxHP;
-
+                if (attacker.HP > attacker.MaxHP) attacker.HP = attacker.MaxHP;
                 Console.WriteLine($"{attacker.Name} used {move.Name} and healed {healAmount} HP!");
-                Console.WriteLine($"{attacker.Name} HP: {attacker.HP}/{attacker.MaxHP}");
                 return;
+            }
+
+            // Apply status if possible
+            if (move.Status != StatusCondition.None && defender.CurrentStatus == StatusCondition.None)
+            {
+                bool inflicted = move.Status switch
+                {
+                    StatusCondition.Burn => true,
+                    StatusCondition.Poison => true,
+                    StatusCondition.Paralysis => rng.Next(100) < 50,
+                    StatusCondition.Sleep => rng.Next(100) < 40,
+                    _ => false
+                };
+
+                if (inflicted)
+                {
+                    defender.CurrentStatus = move.Status;
+                    defender.StatusTurns = move.Status switch
+                    {
+                        StatusCondition.Burn => 2,
+                        StatusCondition.Poison => 2,
+                        StatusCondition.Paralysis => 2,
+                        StatusCondition.Sleep => 1,
+                        _ => 0
+                    };
+                    Console.WriteLine($"{defender.Name} is now {move.Status}!");
+                }
             }
 
             double crit = rng.NextDouble() < move.CritChance ? 1.5 : 1.0;
@@ -140,6 +166,47 @@ namespace PokemonGame.Models
             if (eff > 1) Console.WriteLine("It's super effective!");
             if (eff < 1) Console.WriteLine("It's not very effective...");
             Console.WriteLine($"{defender.Name} HP: {defender.HP}/{defender.MaxHP}");
+        }
+
+        private bool CheckStatus(Pokemon p)
+        {
+            if (p.CurrentStatus == StatusCondition.None) return true;
+
+            switch (p.CurrentStatus)
+            {
+                case StatusCondition.Burn:
+                    int burnDamage = 15;
+                    p.HP -= burnDamage;
+                    Console.WriteLine($"{p.Name} is hurt by burn for {burnDamage} damage!");
+                    p.StatusTurns--;
+                    break;
+
+                case StatusCondition.Poison:
+                    int poisonDamage = (int)Math.Ceiling(p.MaxHP * 0.05);
+                    p.HP -= poisonDamage;
+                    Console.WriteLine($"{p.Name} is hurt by poison for {poisonDamage} damage!");
+                    p.StatusTurns--;
+                    break;
+
+                case StatusCondition.Paralysis:
+                    if (rng.Next(100) < 75)
+                    {
+                        Console.WriteLine($"{p.Name} is paralyzed and cannot move!");
+                        p.StatusTurns--;
+                        return false;
+                    }
+                    p.StatusTurns--;
+                    break;
+
+                case StatusCondition.Sleep:
+                    Console.WriteLine($"{p.Name} is asleep and cannot move!");
+                    p.StatusTurns--;
+                    return false;
+            }
+
+            if (p.StatusTurns <= 0) p.CurrentStatus = StatusCondition.None;
+
+            return true;
         }
 
         private int GetInput(int min, int max)
