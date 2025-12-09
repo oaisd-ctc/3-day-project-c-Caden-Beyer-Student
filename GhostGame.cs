@@ -3,8 +3,9 @@ using System;
 public class GhostGame
 {
 
-    static void Main(string[] args)
+    public void Run()
     {
+        Console.Clear();
 
      
         story();
