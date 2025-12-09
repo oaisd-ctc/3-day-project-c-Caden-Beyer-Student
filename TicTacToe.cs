@@ -1,8 +1,8 @@
 ﻿using System;
 
-public class Program 
+public class TicTacToe
 {
-    public static void Main(string[] args)
+    public void Run()
     {
      char[] board = {'1','2','3','4','5','6','7','8','9'};
      char CurrentPlayer = 'X';

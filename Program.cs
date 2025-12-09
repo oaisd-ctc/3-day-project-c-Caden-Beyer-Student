@@ -1,8 +1,8 @@
 using System;
 
-class Program
+public class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
         Console.Clear();
         Console.WriteLine("Main Menu");
@@ -27,12 +27,12 @@ class Program
                 ghost.Run();
                 break;
             }
-            // else if (choice == "3")
-            // {
-            //     TicTacToe game = new TicTacToe();
-            //     game.Run();
-            //     break;
-            // }
+            else if (choice == "3")
+            {
+                TicTacToe game = new TicTacToe();
+                game.Run();
+                break;
+            }
             else
             {
                 Console.Write("Invalid choice. Please enter a number between 1 and 3: ");
