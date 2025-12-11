@@ -180,6 +180,7 @@ class DinoGame
         Console.Clear();
         Console.WriteLine("Game over or quit pressed.");
         Console.WriteLine($"Final Score: {score}");
+        Console.WriteLine("This game was made by Caden Beyer");
         Console.ReadKey();
 
     }

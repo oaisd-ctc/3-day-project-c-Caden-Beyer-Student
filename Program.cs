@@ -10,8 +10,9 @@ public class Program
         Console.WriteLine("1: Dino Game");
         Console.WriteLine("2: Ghost Game");
         Console.WriteLine("3: Tic Tac Toe");
+        Console.WriteLine("4: Pokemon Battle");
         Console.Write("Enter the game you want to play (1-3): ");
-        
+
         while (true)
         {
             string choice = Console.ReadLine();
@@ -33,10 +34,17 @@ public class Program
                 game.Run();
                 break;
             }
+            else if (choice == "4")
+            {
+                PokemonBattle newBattle = new PokemonBattle();
+                newBattle.Run();
+                break;
+
+            }
             else
             {
                 Console.Write("Invalid choice. Please enter a number between 1 and 3: ");
-                
+
             }
 
         }

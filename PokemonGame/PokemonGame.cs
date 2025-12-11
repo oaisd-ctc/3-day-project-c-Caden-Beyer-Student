@@ -49,5 +49,6 @@ public class PokemonBattle
         }
 
         Console.WriteLine("\nGame Over");
+        Console.WriteLine("This game was made by Gabe Helmus");
     }
 }

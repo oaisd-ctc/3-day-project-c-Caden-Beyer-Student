@@ -32,6 +32,7 @@ public class GhostGame
                 if (UserRoom == GhostDoor)
                 {
                     Console.WriteLine("You Died, loser!!!!!!!!!! You lost you bum!!!!!!!!!!!!!");
+                    Console.WriteLine("This game was (unfortunately) made by Sage Lucas Little");
                     break;
                 }
                 else
@@ -49,7 +50,8 @@ public class GhostGame
         if(room >= 15)
         {
             Console.WriteLine("You Survived, Congratulations"); 
-            Console.WriteLine("You re-awake in the spooky ghost house, you realize you're in an infinite loop that is inescapable, forever and ever tormented until you die..."); 
+            Console.WriteLine("You re-awake in the spooky ghost house, you realize you're in an infinite loop that is inescapable, forever and ever tormented until you die...");
+            Console.WriteLine("This game was (unfortunately) made by Sage Lucas Little");
 
         }
     
