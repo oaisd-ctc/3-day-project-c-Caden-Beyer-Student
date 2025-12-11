@@ -11,7 +11,7 @@ public class Program
         Console.WriteLine("2: Ghost Game");
         Console.WriteLine("3: Tic Tac Toe");
         Console.WriteLine("4: Pokemon Battle");
-        Console.Write("Enter the game you want to play (1-3): ");
+        Console.Write("Enter the game you want to play (1-4): ");
 
         while (true)
         {
@@ -43,7 +43,7 @@ public class Program
             }
             else
             {
-                Console.Write("Invalid choice. Please enter a number between 1 and 3: ");
+                Console.Write("Invalid choice. Please enter a number between 1 and 4: ");
 
             }
 
